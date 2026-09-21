@@ -1,25 +1,18 @@
 ﻿@using static Training.Blazor.Components.Pages.ProductList
 
 <table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-        </tr>
-    </thead>
+
+    @HeaderTemplate
 
     <tbody>
-
         @foreach (var product in Products)
         {
-            <tr>
-                <td>@product.Id</td>
-                <td>@product.Name</td>
-                <td>@product.Price.ToString("C")</td>
-            </tr>
+            @ItemTemplate(product)
         }
     </tbody>
+
+    @FooterTemplate
+
 </table>
 
 
@@ -27,5 +20,14 @@
 
     [Parameter, EditorRequired]
     public required IReadOnlyList<ProductListItem> Products { get; set; }
+
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    [Parameter, EditorRequired]
+    public required RenderFragment<ProductListItem> ItemTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
 
 }

@@ -4,7 +4,29 @@
 
 <PageTitle>Products</PageTitle>
 
-<ProductRepeater Products="@products"  />
+<ProductRepeater Products="@products" Context="product">
+    <HeaderTemplate>        
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+    </HeaderTemplate>
+
+    <ItemTemplate>
+        <tr>
+            <td>@product.Id</td>
+            <td>@product.Name</td>
+            <td>@product.Price.ToString("C")</td>
+        </tr>
+    </ItemTemplate>
+
+    <FooterTemplate>
+        
+    </FooterTemplate>
+</ProductRepeater>
 
 @code {
 
