@@ -1,0 +1,33 @@
+﻿@typeparam T
+
+<table>
+
+    @HeaderTemplate
+
+    <tbody>
+        @foreach (var item in Items)
+        {
+            @ItemTemplate(item)
+        }
+    </tbody>
+
+    @FooterTemplate
+
+</table>
+
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required IReadOnlyList<T> Items { get; set; }
+
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    [Parameter, EditorRequired]
+    public required RenderFragment<T> ItemTemplate { get; set; }
+
+    [Parameter]
+    public RenderFragment? FooterTemplate { get; set; }
+
+}

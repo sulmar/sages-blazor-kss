@@ -4,7 +4,7 @@
 
 <PageTitle>Products</PageTitle>
 
-<ProductRepeater Products="@products" Context="product">
+<Repeater Items="@products" Context="product">
     <HeaderTemplate>        
         <thead>
             <tr>
@@ -26,7 +26,7 @@
     <FooterTemplate>
         
     </FooterTemplate>
-</ProductRepeater>
+</Repeater>
 
 @code {
 
