@@ -29,12 +29,14 @@ Zaufaj certyfikatowi deweloperskiemu (jednorazowo, potrzebne do HTTPS)
 dotnet dev-certs https --trust
 ```
 
-Aplikacje Web Forms otwórz w Visual Studio — wymagają .NET Framework 4.8 i IIS Express.
+Aplikacje Web Forms otwórz przez `WebFormsBlazorComparison.sln` w Visual Studio — wymagają .NET Framework 4.8, IIS Express i katalogu `packages`.
 
 ## Struktura repozytorium
 
 | Katalog | Zawartość |
 | --- | --- |
+| `WebFormsBlazorComparison.sln` | Solution z projektami Web Forms (bez gotowego Blazora) |
+| `packages` | Pakiety NuGet dla projektów Web Forms |
 | `Training.WebForms` | Katalog produktów w ASP.NET Web Forms — punkt odniesienia na sali |
 | `WebFormsApp` | Aplikacja Customers w Web Forms — punkt wyjścia do ćwiczeń |
 | `Exercises` | Zadania do wykonania na szkoleniu |
