@@ -1,4 +1,6 @@
 ﻿@page "/"
+@rendermode InteractiveServer
+
 
 <PageTitle>Home</PageTitle>
 
@@ -8,3 +10,26 @@ Welcome to your new app.
 
 
 <a href="/product-list" class="btn btn-primary">Show Products</a>
+
+<button type="button" class="btn btn-secondary" @onclick="ShowProducts">Show Products</button>
+
+<button type="button" class="btn btn-dark" @onclick="ShowGoogle">Google</button>
+
+@code {
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private void ShowProducts()
+    {
+        // ...
+        NavigationManager.NavigateTo("/product-list");
+    }
+
+    private void ShowGoogle()
+    {
+        // ...
+        NavigationManager.NavigateTo("https://www.google.com");
+    }
+}
+
