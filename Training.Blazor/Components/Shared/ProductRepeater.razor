@@ -1,0 +1,31 @@
+﻿@using static Training.Blazor.Components.Pages.ProductList
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var product in Products)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.Price.ToString("C")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required IReadOnlyList<ProductListItem> Products { get; set; }
+
+}
