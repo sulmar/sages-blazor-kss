@@ -1,29 +1,38 @@
 ﻿@page "/ProductDetails"
 @* @page "/Products/{id:int}" *@
-
-@using Training.Blazor.Models
+@inject ProductService ProductService
 
 <h3>ProductDetails</h3>
+
+@if (product is null)
+{
+    <p>Brak produktu</p>
+}
+else
+{
+    <p>ID: @product.Id</p>
+    <p>Name: @product.Name</p>
+    <p>Price: @product.Price.ToString("C")</p>
+}
 
 @code {
 
     // QueryString:
     // ProductDetails?id={0}
-    [SupplyParameterFromQuery]   
+    [SupplyParameterFromQuery]
     public int Id { get; set; }
 
     // RouteParam:
     // Products/{id}
     // [Parameter]
-    // public int Id { get; set; }      
+    // public int Id { get; set; }
 
-    private ProductListItem product;
+    private ProductListItem? product;
 
-    protected override Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
         // TODO: GetProductById
-
-        return Task.CompletedTask;
+        product = ProductService.GetProductById(Id);
     }
 
 }

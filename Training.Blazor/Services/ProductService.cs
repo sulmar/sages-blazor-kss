@@ -4,9 +4,11 @@ namespace Training.Blazor.Services;
 
 public class ProductService
 {
-    public IReadOnlyList<ProductListItem> GetProducts()
+    private readonly IReadOnlyList<ProductListItem> products;
+
+    public ProductService()
     {
-        return new List<ProductListItem>
+        products = new List<ProductListItem>
             {
                 new ProductListItem
                 {
@@ -28,4 +30,15 @@ public class ProductService
                 }
             };
     }
+
+    public IReadOnlyList<ProductListItem> GetProducts()
+    {
+        return products;
+    }
+
+    public ProductListItem? GetProductById(int id)
+    {
+        return products.SingleOrDefault(p=>p.Id == id);
+    }
+
 }
