@@ -1,4 +1,5 @@
-﻿using Training.Blazor.Models;
+﻿using Bogus;
+using Training.Blazor.Models;
 
 namespace Training.Blazor.Services;
 
@@ -6,29 +7,9 @@ public class ProductService
 {
     private readonly IReadOnlyList<ProductListItem> products;
 
-    public ProductService()
+    public ProductService(Faker<ProductListItem> faker)
     {
-        products = new List<ProductListItem>
-            {
-                new ProductListItem
-                {
-                    Id = 1,
-                    Name = "Keyboard",
-                    Price = 149.99m
-                },
-                new ProductListItem
-                {
-                    Id = 2,
-                    Name = "Mouse",
-                    Price = 79.99m
-                },
-                new ProductListItem
-                {
-                    Id = 3,
-                    Name = "Monitor",
-                    Price = 1299.00m
-                }
-            };
+        products = faker.Generate(100);     
     }
 
     public IReadOnlyList<ProductListItem> GetProducts()

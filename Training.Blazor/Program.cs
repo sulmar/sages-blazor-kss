@@ -1,4 +1,7 @@
+using Bogus;
 using Training.Blazor.Components;
+using Training.Blazor.Fakers;
+using Training.Blazor.Models;
 using Training.Blazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +11,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddSingleton<ProductService>();
-
+builder.Services.AddSingleton<Faker<ProductListItem>, ProductFaker>();
 
 var app = builder.Build();
 
