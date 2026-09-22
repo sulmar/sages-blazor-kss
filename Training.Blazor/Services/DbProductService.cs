@@ -14,6 +14,11 @@ public class DbProductService : IProductService
         products = faker.Generate(100);
     }
 
+    public void Add(ProductListItem entity)
+    {
+        throw new NotImplementedException();
+    }
+
     public IReadOnlyList<ProductListItem> GetAll()
     {
         return products;
@@ -25,6 +30,11 @@ public class DbProductService : IProductService
     }
 
     public void Update(ProductListItem entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    IList<ProductListItem> IEntityService<ProductListItem>.GetAll()
     {
         throw new NotImplementedException();
     }

@@ -1,0 +1,47 @@
+﻿@page "/products/create"
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>Nowy produkt</PageTitle>
+
+<h1>Nowy produkt</h1>
+
+<EditForm Model="product" OnValidSubmit="Save">
+
+    @* <DataAnnotationsValidator /> *@
+
+    <Blazored.FluentValidation.FluentValidationValidator />
+
+    <ValidationSummary />
+
+    <div>
+        <label>Nazwa:</label>
+        <InputText @bind-Value="product.Name" />
+        <ValidationMessage For="() => product.Name" />
+    </div>
+
+    <div>
+        <label>Cena:</label>
+        @* <input type="number" @bind-value="product.Price" /> *@
+        <InputNumber @bind-Value="product.Price" />
+        <ValidationMessage For="() => product.Price" />
+    </div>
+
+    <button type="submit">Save</button>
+
+</EditForm>
+
+
+@code {
+
+    private ProductListItem? product = new();
+
+    private void Save()
+    {
+        ProductService.Add(product);
+
+        Navigation.NavigateTo("/products");
+    }
+
+}

@@ -48,7 +48,7 @@
     // Page_Load
     protected override void OnInitialized()
     {
-        products = ProductService.GetAll();
+        products = ProductService.GetAll().AsReadOnly();
     }
 
 }

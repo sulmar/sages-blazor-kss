@@ -7,14 +7,23 @@ namespace Training.Blazor.Services;
 public abstract class FakeEntityService<T>  : IEntityService<T>
     where T : BaseEntity
 {
-    private readonly IReadOnlyList<T> entities;
+    private readonly IList<T> entities;
 
     public FakeEntityService(Faker<T> faker)
     {
         entities = faker.Generate(100);
     }
 
-    public IReadOnlyList<T> GetAll()
+    public void Add(T entity)
+    {
+        var id = entities.Max(e=>e.Id);
+
+        entity.Id = ++id;
+
+        entities.Add(entity);
+    }
+
+    public IList<T> GetAll()
     {
         return entities;
     }
