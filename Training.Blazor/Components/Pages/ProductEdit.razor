@@ -1,0 +1,49 @@
+﻿@page "/products/{id:int}/edit"
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>Product Edit</PageTitle>
+
+<h1>Product Edit</h1>
+
+@if (product is null)
+{
+    <p>Brak produktu</p>
+}
+else
+{
+    <div>
+        <label>Nazwa:</label>
+        <input @bind-value="product.Name" />
+    </div>
+
+    <div>
+        <label>Cena:</label>
+        <input @bind-value="product.Price" />
+    </div>
+
+    <button @onclick="Save">Save</button>
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private ProductListItem? product;
+
+
+    protected override void OnParametersSet()
+    {
+        product = ProductService.GetById(Id);
+    }
+
+    private void Save()
+    {
+        ProductService.Update(product);
+
+        Navigation.NavigateTo("/products");
+    }
+
+}

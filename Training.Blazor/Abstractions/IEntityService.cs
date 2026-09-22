@@ -7,4 +7,5 @@ public interface IEntityService<T>
 {
     IReadOnlyList<T> GetAll();
     T? GetById(int id);
+    void Update(T entity);
 }

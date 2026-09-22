@@ -23,4 +23,9 @@ public class DbProductService : IProductService
     {
         return products.SingleOrDefault(p => p.Id == id);
     }
+
+    public void Update(ProductListItem entity)
+    {
+        throw new NotImplementedException();
+    }
 }
