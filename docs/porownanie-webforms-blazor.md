@@ -7,6 +7,17 @@ To rozwiązanie zestawia dwie architektury na tym samym przykładzie **Counter**
 - Web Forms: `Training.WebForms/Counter.aspx`, `Counter.aspx.cs`, `Counter.aspx.designer.cs`
 - Blazor: `Training.Blazor/Components/Pages/Counter.razor`
 
+Diagram sekwencji UML porównuje klasyczny pełny postback Web Forms z interakcją Blazor Server po uruchomieniu połączenia.
+
+![Diagram sekwencji UML: Web Forms vs Blazor Server](uml-diagram-webforms-blazor.png)
+
+| Cecha | Web Forms | Blazor Server |
+|---|---|---|
+| Stan między interakcjami | Domyślnie ViewState przesyłany w stronie; także inne mechanizmy | Stan komponentów w pamięci serwera, w circuit |
+| Życie obiektów UI | Nowa instancja strony przy każdym żądaniu | Instancje komponentów żyją przez czas ich obecności w circuit |
+| Komunikacja | Żądanie HTTP i odpowiedź | Dwukierunkowe połączenie SignalR |
+| Aktualizacja widoku | Pełny HTML przy pełnym postbacku | Zmiany DOM, bez przeładowania dokumentu |
+
 ## 1. Strony
 
 Najważniejsza różnica: WebForms kieruje żądanie do fizycznego pliku na podstawie nazwy pliku, a Blazor używa routingu komponentów ustawionego w `@page`.
