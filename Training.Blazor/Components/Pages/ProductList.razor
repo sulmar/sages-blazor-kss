@@ -1,6 +1,6 @@
 ﻿@page "/product-list"
 @page "/products"
-@inject ProductService ProductService
+@inject IProductService ProductService
 
 <PageTitle>Products</PageTitle>
 
@@ -35,7 +35,7 @@
 @code {
 
     private IReadOnlyList<ProductListItem> products;
-    
+
     // [Inject]
     // private ProductService ProductService { get; set; }
 
@@ -43,7 +43,7 @@
 
     // Page_Load
     protected override void OnInitialized()
-    {        
+    {
         products = ProductService.GetProducts();
     }
 

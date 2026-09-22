@@ -1,13 +1,14 @@
 ﻿using Bogus;
+using Training.Blazor.Abstractions;
 using Training.Blazor.Models;
 
 namespace Training.Blazor.Services;
 
-public class ProductService
+public class FakeProductService : IProductService
 {
     private readonly IReadOnlyList<ProductListItem> products;
 
-    public ProductService(Faker<ProductListItem> faker)
+    public FakeProductService(Faker<ProductListItem> faker)
     {
         products = faker.Generate(100);     
     }
