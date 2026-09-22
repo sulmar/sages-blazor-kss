@@ -4,23 +4,9 @@ using Training.Blazor.Models;
 
 namespace Training.Blazor.Services;
 
-public class FakeProductService : IProductService
+public class FakeProductService : FakeEntityService<ProductListItem>, IProductService
 {
-    private readonly IReadOnlyList<ProductListItem> products;
-
-    public FakeProductService(Faker<ProductListItem> faker)
+    public FakeProductService(Faker<ProductListItem> faker) : base(faker)
     {
-        products = faker.Generate(100);     
     }
-
-    public IReadOnlyList<ProductListItem> GetProducts()
-    {
-        return products;
-    }
-
-    public ProductListItem? GetProductById(int id)
-    {
-        return products.SingleOrDefault(p=>p.Id == id);
-    }
-
 }

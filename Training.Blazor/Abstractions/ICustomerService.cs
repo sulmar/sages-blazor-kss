@@ -2,7 +2,7 @@
 
 namespace Training.Blazor.Abstractions;
 
-public interface IProductService : IEntityService<ProductListItem>
+public interface ICustomerService : IEntityService<CustomerListItem>
 {
 
 }

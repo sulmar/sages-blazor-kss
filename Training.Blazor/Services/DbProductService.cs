@@ -14,12 +14,12 @@ public class DbProductService : IProductService
         products = faker.Generate(100);
     }
 
-    public IReadOnlyList<ProductListItem> GetProducts()
+    public IReadOnlyList<ProductListItem> GetAll()
     {
         return products;
     }
 
-    public ProductListItem? GetProductById(int id)
+    public ProductListItem? GetById(int id)
     {
         return products.SingleOrDefault(p => p.Id == id);
     }
