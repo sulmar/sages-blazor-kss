@@ -1,0 +1,36 @@
+﻿
+<EditForm Model="Product" OnValidSubmit="Save">
+
+    @* <DataAnnotationsValidator /> *@
+
+    <Blazored.FluentValidation.FluentValidationValidator />
+
+    <ValidationSummary />
+
+    <div>
+        <label>Nazwa:</label>
+        <InputText @bind-Value="Product.Name" />
+        <ValidationMessage For="() => Product.Name" />
+    </div>
+
+    <div>
+        <label>Cena:</label>
+        @* <input type="number" @bind-value="product.Price" /> *@
+        <InputNumber @bind-Value="Product.Price" />
+        <ValidationMessage For="() => Product.Price" />
+    </div>
+
+    <button type="submit">Save</button>
+
+</EditForm>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public required ProductListItem Product { get; set; }    
+
+    [Parameter]
+    public EventCallback Save { get; set; }
+  
+
+}
