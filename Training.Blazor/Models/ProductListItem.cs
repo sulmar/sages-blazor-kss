@@ -10,24 +10,27 @@ public sealed class ProductListItem : BaseEntity
     public string Name { get; set; }
 
     [Range(0.01, 1000)]
-    //[CustomValidation()]
-    //[Currency]
 
-    //[DisplayName("Cena")]
-    //[Description("Cena")]    
+    [CustomValidation(typeof(CustomValidator), nameof(CustomValidator.ValidatePrice))]
     public decimal Price { get; set; }
 }
 
-public class CurrencyAttribute : ValidationAttribute
+public static class CustomValidator
 {
-    public override bool IsValid(object? value)
+    public static ValidationResult? ValidatePrice(
+        decimal price,
+        ValidationContext context)
     {
-        if (decimal.TryParse(value.ToString(), out decimal currency))
+        if (price <= 0)
         {
-            return true;
-
+            return new ValidationResult("Cena musi być większa od zera.", new[] { context.MemberName! });
         }
 
-        return false;
+        if (decimal.Round(price, 2) != price)
+        {
+            return new ValidationResult("Cena może mieć maksymalnie 2 miejsca po przecinku.", new[] { context.MemberName! });
+        }
+
+        return ValidationResult.Success;
     }
 }
