@@ -1,6 +1,6 @@
 ﻿@page "/product-list"
 @page "/products"
-@using Training.Blazor.Components.Shared
+@inject ProductService ProductService
 
 <PageTitle>Products</PageTitle>
 
@@ -13,6 +13,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Actions</th>
             </tr>
         </thead>
     </HeaderTemplate>
@@ -22,6 +23,7 @@
             <td>@product.Id</td>
             <td>@product.Name</td>
             <td>@product.Price.ToString("C")</td>
+            <td><a href="/ProductDetails?Id=@product.Id" class="btn btn-primary">Podgląd</a></td>
         </tr>
     </ItemTemplate>
 
@@ -32,10 +34,17 @@
 
 @code {
 
+    private IReadOnlyList<ProductListItem> products;
+    
+    // [Inject]
+    // private ProductService ProductService { get; set; }
+
+    // ekwiwalent: @inject ProductService ProductService
+
     // Page_Load
     protected override void OnInitialized()
-    {
-        products = GetProducts();
+    {        
+        products = ProductService.GetProducts();
     }
 
 }

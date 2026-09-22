@@ -1,0 +1,29 @@
+﻿@page "/ProductDetails"
+@* @page "/Products/{id:int}" *@
+
+@using Training.Blazor.Models
+
+<h3>ProductDetails</h3>
+
+@code {
+
+    // QueryString:
+    // ProductDetails?id={0}
+    [SupplyParameterFromQuery]   
+    public int Id { get; set; }
+
+    // RouteParam:
+    // Products/{id}
+    // [Parameter]
+    // public int Id { get; set; }      
+
+    private ProductListItem product;
+
+    protected override Task OnParametersSetAsync()
+    {
+        // TODO: GetProductById
+
+        return Task.CompletedTask;
+    }
+
+}

@@ -1,10 +1,10 @@
-namespace Training.Blazor.Components.Pages;
-public partial class ProductList
+﻿using Training.Blazor.Models;
+
+namespace Training.Blazor.Services;
+
+public class ProductService
 {
-    private IReadOnlyList<ProductListItem> products;
-    
-   
-    private static IReadOnlyList<ProductListItem> GetProducts()
+    public IReadOnlyList<ProductListItem> GetProducts()
     {
         return new List<ProductListItem>
             {
@@ -28,14 +28,4 @@ public partial class ProductList
                 }
             };
     }
-
-    public sealed class ProductListItem
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public decimal Price { get; set; }
-    }
-
 }
