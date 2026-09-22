@@ -1,0 +1,60 @@
+﻿@page "/products/{id:int}/edit-validation"
+@inject IProductService ProductService
+@inject NavigationManager Navigation
+@rendermode InteractiveServer
+
+<PageTitle>Product Edit Validation</PageTitle>
+
+<h1>Product Edit Validation</h1>
+
+@if (product is null)
+{
+    <p>Brak produktu</p>
+}
+else
+{
+    <EditForm Model="product" OnValidSubmit="Save">
+
+        <DataAnnotationsValidator />
+
+        <ValidationSummary />
+
+        <div>
+            <label>Nazwa:</label>
+            <InputText @bind-Value="product.Name" />
+            <ValidationMessage For="()=>product.Name" />
+        </div>
+
+        <div>
+            <label>Cena:</label>
+            @* <input type="number" @bind-value="product.Price" /> *@
+            <InputNumber @bind-Value="product.Price" />
+            <ValidationMessage For="() => product.Price" />
+        </div>
+
+        <button type="submit">Save</button>
+
+    </EditForm>
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+    private ProductListItem? product;
+
+
+    protected override void OnParametersSet()
+    {
+        product = ProductService.GetById(Id);
+    }
+
+    private void Save()
+    {
+        ProductService.Update(product);
+
+        Navigation.NavigateTo("/products");
+    }
+
+}
