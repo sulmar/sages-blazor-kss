@@ -15,7 +15,9 @@ else
 {
     <EditForm Model="product" OnValidSubmit="Save">
 
-        <DataAnnotationsValidator />
+        @* <DataAnnotationsValidator /> *@
+
+        <Blazored.FluentValidation.FluentValidationValidator />
 
         <ValidationSummary />
 

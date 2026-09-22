@@ -1,16 +1,20 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Training.Blazor.Models;
 
 public sealed class ProductListItem : BaseEntity
 {
-    [Required(ErrorMessage = "Nazwa jest wymagana"), StringLength(20, MinimumLength = 3)]
-    [RegularExpression(@"^S.*", ErrorMessage = "Nazwa powinna zaczynac od litery S")]
+    //[Required(ErrorMessage = "Nazwa jest wymagana"), StringLength(20, MinimumLength = 3)]
+    //[RegularExpression(@"^S.*", ErrorMessage = "Nazwa powinna zaczynac od litery S")]
     public string Name { get; set; }
 
     [Range(0.01, 1000)]
     //[CustomValidation()]
-    [Currency]
+    //[Currency]
+
+    //[DisplayName("Cena")]
+    //[Description("Cena")]    
     public decimal Price { get; set; }
 }
 
