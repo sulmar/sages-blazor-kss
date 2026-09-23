@@ -1,4 +1,5 @@
 using Bogus;
+using StackExchange.Redis;
 using Training.Blazor.Abstractions;
 using Training.Blazor.Components;
 using Training.Blazor.Fakers;
@@ -14,6 +15,10 @@ builder.Services.AddRazorComponents()
 builder.Services.AddSingleton<IProductService, FakeProductService>();
 builder.Services.AddSingleton<Faker<ProductListItem>, ProductFaker>();
 builder.Services.AddScoped<BrowserNavigation>();
+
+
+builder.Services.AddStackExchangeRedisCache(
+    options => options.Configuration = builder.Configuration.GetConnectionString("Redis"));
 
 var app = builder.Build();
 
