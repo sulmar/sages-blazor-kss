@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Training.Blazor.Abstractions;
 
 namespace Training.Blazor.Models;
 
@@ -10,8 +11,8 @@ public sealed class ProductListItem : BaseEntity
     public string Name { get; set; }
 
     [Range(0.01, 1000)]
-
-    [CustomValidation(typeof(CustomValidator), nameof(CustomValidator.ValidatePrice))]    
+    //[CustomValidation(typeof(CustomValidator), nameof(CustomValidator.ValidatePrice))]    
+    [Price]
     public decimal Price { get; set; }
 }
 
@@ -46,7 +47,7 @@ public sealed class PriceAttribute : ValidationAttribute
 
         if (value is decimal price)
             return CustomValidator.ValidatePrice(price, validationContext);
-
+        
         return new ValidationResult(
             "Atrybut Price wymaga właściwości typu decimal.");
     }
