@@ -1,0 +1,33 @@
+﻿@page "/built-content"
+@rendermode InteractiveServer
+
+
+<PageTitle>Built Content</PageTitle>
+
+<h1>Built Content Example</h1>
+
+<div>
+    @CustomRender
+</div>
+
+<button @onclick="RenderComponent">
+    Create three Pet Details components
+</button>
+
+@code {
+    private RenderFragment? CustomRender { get; set; }
+
+    private RenderFragment CreateComponent() => builder =>
+    {
+        for (var i = 0; i < 3; i++)
+        {
+            builder.AddMarkupContent(0, "<h1>Hello, world!</h1>\\r\\n\\r\\nWelcome to your new app.\\r\\n\\r\\n");
+
+            builder.OpenComponent(0, typeof(PetDetails));           
+            builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
+            builder.CloseComponent();
+        }
+    };
+
+    private void RenderComponent() => CustomRender = CreateComponent();
+}

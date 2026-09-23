@@ -20,6 +20,11 @@
 @code {
     private int currentCount = 0;
 
+    protected override bool ShouldRender()
+    {
+        return currentCount % 2 == 0;
+    }
+
 
     private async Task IncrementCount()
     {
