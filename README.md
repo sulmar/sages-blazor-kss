@@ -48,6 +48,8 @@ Mapa myśli: [mindmap-blazor-webforms](docs/mindmap-blazor-webforms.md)
 
 Szczegółowe porównanie: [Porównanie WebForms i Blazor](docs/porownanie-webforms-blazor.md)
 
+Komendy CLI: [dotnet-cli-commands.md](docs/dotnet-cli-commands.md)
+
 Ćwiczenie: [Migracja Customers do Blazora](Exercises/README.md)
 
 ## Harmonogram
