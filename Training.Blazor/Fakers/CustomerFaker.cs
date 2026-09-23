@@ -5,7 +5,7 @@ namespace Training.Blazor.Fakers;
 
 public class CustomerFaker : Faker<CustomerListItem>
 {
-    public CustomerFaker()
+    public CustomerFaker() : base("pl")
     {
         RuleFor(p => p.Id, f => f.IndexFaker + 1);
         RuleFor(p => p.Name, f => f.Person.FullName);
