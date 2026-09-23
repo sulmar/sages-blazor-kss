@@ -11,7 +11,7 @@ public sealed class ProductListItem : BaseEntity
 
     [Range(0.01, 1000)]
 
-    [CustomValidation(typeof(CustomValidator), nameof(CustomValidator.ValidatePrice))]
+    [CustomValidation(typeof(CustomValidator), nameof(CustomValidator.ValidatePrice))]    
     public decimal Price { get; set; }
 }
 
@@ -32,5 +32,22 @@ public static class CustomValidator
         }
 
         return ValidationResult.Success;
+    }
+}
+
+public sealed class PriceAttribute : ValidationAttribute
+{
+    protected override ValidationResult? IsValid(
+        object? value,
+        ValidationContext validationContext)
+    {
+        if (value is null)
+            return ValidationResult.Success;
+
+        if (value is decimal price)
+            return CustomValidator.ValidatePrice(price, validationContext);
+
+        return new ValidationResult(
+            "Atrybut Price wymaga właściwości typu decimal.");
     }
 }
