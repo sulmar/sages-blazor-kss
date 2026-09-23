@@ -1,7 +1,9 @@
 ﻿@page "/products/{id:int}/edit"
 @inject IProductService ProductService
 @inject NavigationManager Navigation
+@inject IJSRuntime JS
 @rendermode InteractiveServer
+
 
 <PageTitle>Product Edit</PageTitle>
 
@@ -39,11 +41,19 @@ else
         product = ProductService.GetById(Id);
     }
 
-    private void Save()
+    private async Task Save()
     {
         ProductService.Update(product);
 
-        Navigation.NavigateTo("/products");
+        // Navigation.NavigateTo("/products");
+
+        await GoBack();
+    }
+
+    // JS: history.back()
+    private async Task GoBack()
+    {
+        await JS.InvokeVoidAsync("history.back");
     }
 
 }
