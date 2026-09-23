@@ -1,6 +1,7 @@
 ﻿@page "/products/create"
 @inject IProductService ProductService
 @inject NavigationManager Navigation
+@inject BrowserNavigation Nav
 @rendermode InteractiveServer
 
 <PageTitle>Nowy produkt</PageTitle>
@@ -14,11 +15,16 @@
 
     private ProductListItem? product = new();
 
-    private void SaveProduct()
+    private async Task SaveProduct()
     {
         ProductService.Add(product);
 
-        Navigation.NavigateTo("/products");
+        // Navigation.NavigateTo("/products");
+
+        if (await Nav.CanBack())
+        {
+            await Nav.GoBack(); // Facade 
+        }
     }
 
 }

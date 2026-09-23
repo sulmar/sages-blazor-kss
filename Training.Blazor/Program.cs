@@ -13,6 +13,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<IProductService, FakeProductService>();
 builder.Services.AddSingleton<Faker<ProductListItem>, ProductFaker>();
+builder.Services.AddScoped<BrowserNavigation>();
 
 var app = builder.Build();
 
