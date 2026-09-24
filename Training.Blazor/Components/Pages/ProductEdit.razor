@@ -1,48 +1,59 @@
-﻿@page "/products/{id:int}/edit"
+﻿@* Trasa z parametrem liczbowym, np. /products/1/edit *@
+@page "/products/{id:int}/edit"
+@* Serwis zapisu produktu. *@
 @inject IProductService ProductService
+@* Nawigacja po stronie Blazora. *@
 @inject NavigationManager Navigation
+@* Wywołania JavaScript z C#. *@
 @inject IJSRuntime JS
+@* Formularz reaguje na zdarzenia bez przeładowania strony. *@
 @rendermode InteractiveServer
-
 
 <PageTitle>Product Edit</PageTitle>
 
 <h1>Product Edit</h1>
 
+@* Pusty stan, gdy Id nie wskazuje produktu. *@
 @if (product is null)
 {
     <p>Brak produktu</p>
 }
 else
-{    
+{
     <div>
         <label>Nazwa:</label>
+        @* Dwukierunkowe wiązanie pola Name. *@
         <input @bind-value="product.Name" />
     </div>
 
     <div>
         <label>Cena:</label>
+        @* Dwukierunkowe wiązanie pola Price. *@
         <input @bind-value="product.Price" />
     </div>
 
+    @* Kliknięcie zapisuje formularz. *@
     <button @onclick="Save">Save</button>
 }
 
 @code {
-
+    // Id z segmentu trasy {id:int}.
     [Parameter]
     public int Id { get; set; }
 
+    // Edytowany produkt.
     private ProductListItem? product;
 
-
+    // Po odebraniu Id ładuje rekord.
     protected override void OnParametersSet()
     {
         product = ProductService.GetById(Id);
     }
 
+    // Zapis i powrót do poprzedniej strony.
     private async Task Save()
     {
+        // Aktualizacja w serwisie.
         ProductService.Update(product);
 
         // Navigation.NavigateTo("/products");
@@ -50,10 +61,10 @@ else
         await GoBack();
     }
 
-    // JS: history.back()
+    // Odpowiednik JS: history.back()
     private async Task GoBack()
     {
+        // Wywołanie funkcji przeglądarki bez wartości zwrotnej.
         await JS.InvokeVoidAsync("history.back");
     }
-
 }

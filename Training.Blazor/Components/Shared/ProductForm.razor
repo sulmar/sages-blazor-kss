@@ -1,36 +1,44 @@
-﻿
+﻿@* Formularz Blazora: Model to obiekt, OnValidSubmit woła się po poprawnej walidacji. *@
 <EditForm Model="Product" OnValidSubmit="Save">
 
+    @* Walidacja atrybutami DataAnnotations — tu wyłączona. *@
     @* <DataAnnotationsValidator /> *@
 
+    @* Walidacja regułami FluentValidation. *@
     <Blazored.FluentValidation.FluentValidationValidator />
 
+    @* Zbiorcza lista błędów walidacji. *@
     <ValidationSummary />
 
     <div>
         <label>Nazwa:</label>
+        @* Pole tekstowe związane z Product.Name. *@
         <InputText @bind-Value="Product.Name" />
+        @* Komunikat błędu tylko dla właściwości Name. *@
         <ValidationMessage For="() => Product.Name" />
     </div>
 
     <div>
         <label>Cena:</label>
+        @* Zwykły input bez walidacji formularza. *@
         @* <input type="number" @bind-value="product.Price" /> *@
+        @* Pole liczbowe związane z Product.Price. *@
         <InputNumber @bind-Value="Product.Price" />
+        @* Komunikat błędu tylko dla właściwości Price. *@
         <ValidationMessage For="() => Product.Price" />
     </div>
 
+    @* type="submit" wysyła EditForm. *@
     <button type="submit">Save</button>
 
 </EditForm>
 
 @code {
-
+    // Model formularza — wymagany przy użyciu komponentu.
     [Parameter, EditorRequired]
-    public required ProductListItem Product { get; set; }    
+    public required ProductListItem Product { get; set; }
 
+    // Callback rodzica wołany po poprawnym submit.
     [Parameter]
     public EventCallback Save { get; set; }
-  
-
 }

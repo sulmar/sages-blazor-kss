@@ -1,4 +1,6 @@
-﻿@page "/weather"
+﻿@* Trasa strony pogody. *@
+@page "/weather"
+@* Klient HTTP wstrzyknięty z DI — wołania idą z przeglądarki. *@
 @inject HttpClient Http
 
 <PageTitle>Weather</PageTitle>
@@ -7,6 +9,7 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
+@* null — dane jeszcze nie zostały pobrane. *@
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -23,6 +26,7 @@ else
             </tr>
         </thead>
         <tbody>
+            @* Jeden wiersz na każdą prognozę z JSON. *@
             @foreach (var forecast in forecasts)
             {
                 <tr>
@@ -37,13 +41,17 @@ else
 }
 
 @code {
+    // Tablica prognoz; null do czasu odpowiedzi HTTP.
     private WeatherForecast[]? forecasts;
 
+    // Pobranie danych raz przy starcie komponentu.
     protected override async Task OnInitializedAsync()
     {
+        // GET sample-data/weather.json i deserializacja do tablicy.
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
     }
 
+    // Model zgodny z polami w pliku JSON.
     public class WeatherForecast
     {
         public DateOnly Date { get; set; }
@@ -52,6 +60,7 @@ else
 
         public string? Summary { get; set; }
 
+        // Fahrenheit wyliczony z Celsjusza.
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 }

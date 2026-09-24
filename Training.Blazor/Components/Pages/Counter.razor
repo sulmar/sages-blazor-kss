@@ -1,48 +1,63 @@
-﻿@page "/counter"
+﻿@* Trasa komponentu — adres URL tej strony. *@
+@page "/counter"
+@* Przestrzeń nazw cache rozproszonego. *@
 @using Microsoft.Extensions.Caching.Distributed
+@* Przestrzeń nazw z rozszerzeniami Redis. *@
 @using Training.Blazor.Services
+@* Wstrzyknięcie serwisu do komponentu. *@
 @inject IDistributedCache Cache
+@* Tryb interaktywny: zdarzenia idą na serwer przez SignalR. *@
 @rendermode InteractiveServer
 
+@* Tytuł karty przeglądarki. *@
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
+@* @ wstawia wartość pola C# do HTML. *@
 <p role="status">Current count: @currentCount</p>
 
+@* Kliknięcie woła metodę bez przeładowania strony. *@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
-
+@* Drugi przycisk — osobna metoda obsługi kliknięcia. *@
 <button class="btn btn-danger" @onclick="ClearCount">Clear</button>
 
-
-
 @code {
+    // Stan licznika trzymany w instancji komponentu.
     private int currentCount = 0;
 
+    // Decyduje, czy po zdarzeniu odświeżyć widok.
     protected override bool ShouldRender()
     {
+        // Render tylko przy parzystej wartości.
         return currentCount % 2 == 0;
     }
 
-
+    // Handler przycisku „Click me”.
     private async Task IncrementCount()
     {
+        // Zwiększenie licznika.
         currentCount++;
 
+        // Zapis aktualnej wartości do Redis.
         await Cache.SetRecordAsync<int>(RedisKeys.GetCurrentKey("marcin"), currentCount);
     }
 
+    // Handler przycisku „Clear”.
     private async Task ClearCount()
     {
+        // Wyzerowanie licznika w pamięci komponentu.
         currentCount = 0;
 
+        // Usunięcie zapisu z cache.
         await Cache.RemoveAsync(RedisKeys.GetCurrentKey("marcin"));
     }
 
+    // Jednorazowo po utworzeniu komponentu — odpowiednik Page_Load.
     protected override async Task OnInitializedAsync()
     {
+        // Odczyt wcześniej zapisanej wartości z Redis.
         currentCount = await Cache.GetRecordAsync<int>(RedisKeys.GetCurrentKey("marcin"));
-
     }
 }

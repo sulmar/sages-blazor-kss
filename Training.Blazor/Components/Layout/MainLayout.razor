@@ -1,7 +1,9 @@
-﻿@inherits LayoutComponentBase
+﻿@* Komponent dziedziczy po layoucie — dostaje właściwość Body. *@
+@inherits LayoutComponentBase
 
 <div class="page">
     <div class="sidebar">
+        @* Menu boczne jako osobny komponent. *@
         <NavMenu />
     </div>
 
@@ -11,11 +13,13 @@
         </div>
 
         <article class="content px-4">
+            @* Tu Router wstawia treść dopasowanej strony. *@
             @Body
         </article>
     </main>
 </div>
 
+@* Pasek błędu połączenia Blazor, pokazywany przez skrypt frameworka. *@
 <div id="blazor-error-ui">
     An unhandled error has occurred.
     <a href="" class="reload">Reload</a>

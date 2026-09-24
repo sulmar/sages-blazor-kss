@@ -1,4 +1,5 @@
-﻿@inherits LayoutComponentBase
+﻿@* Layout otacza każdą stronę; Body to jej treść. *@
+@inherits LayoutComponentBase
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -10,6 +11,7 @@
         </div>
 
         <article class="content px-4">
+            @* Miejsce na komponent dopasowany przez Router. *@
             @Body
         </article>
     </main>

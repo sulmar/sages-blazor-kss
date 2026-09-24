@@ -1,4 +1,5 @@
-﻿@page "/Error"
+﻿@* Strona błędu wskazana w UseExceptionHandler. *@
+@page "/Error"
 @using System.Diagnostics
 
 <PageTitle>Error</PageTitle>
@@ -6,6 +7,7 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+@* Identyfikator żądania tylko gdy jest dostępny. *@
 @if (ShowRequestId)
 {
     <p>
@@ -24,13 +26,17 @@
     and restarting the app.
 </p>
 
-@code{
+@code {
+    // Bieżące żądanie HTTP przekazane kaskadowo z hosta.
     [CascadingParameter]
     private HttpContext? HttpContext { get; set; }
 
+    // Id śladu do pokazania użytkownikowi.
     private string? RequestId { get; set; }
+    // true, gdy RequestId nie jest pusty.
     private bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
+    // Id z Activity albo z identyfikatora śladu HTTP.
     protected override void OnInitialized() =>
         RequestId = Activity.Current?.Id ?? HttpContext?.TraceIdentifier;
 }

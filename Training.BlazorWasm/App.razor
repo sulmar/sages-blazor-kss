@@ -1,8 +1,12 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿@* Router dopasowuje adres URL do komponentu z @page. *@
+<Router AppAssembly="@typeof(App).Assembly">
     <Found Context="routeData">
+        @* Znaleziona strona w layoucie MainLayout. *@
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        @* Po zmianie strony fokus ląduje na h1. *@
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
+    @* Adres bez pasującej trasy. *@
     <NotFound>
         <PageTitle>Not found</PageTitle>
         <LayoutView Layout="@typeof(MainLayout)">

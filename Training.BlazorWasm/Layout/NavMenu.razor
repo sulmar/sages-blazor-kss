@@ -1,15 +1,18 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">Training.BlazorWasm</a>
+        @* Przełącznik menu — woła metodę C#. *@
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
 </div>
 
+@* Klasa CSS zależy od stanu collapseNavMenu; klik zwija menu. *@
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
         <div class="nav-item px-3">
+            @* Aktywny tylko na stronie głównej. *@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
@@ -28,10 +31,13 @@
 </div>
 
 @code {
+    // true — menu zwinięte.
     private bool collapseNavMenu = true;
 
+    // Klasa collapse albo brak klasy, gdy menu jest otwarte.
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
 
+    // Odwraca stan menu; widok odświeża się sam.
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;

@@ -1,6 +1,7 @@
-﻿@page "/"
+﻿@* Strona startowa pod adresem /. *@
+@page "/"
+@* Przyciski obsługują zdarzenia na serwerze. *@
 @rendermode InteractiveServer
-
 
 <PageTitle>Home</PageTitle>
 
@@ -8,31 +9,34 @@
 
 Welcome to your new app.
 
-
+@* Zwykły link — przeglądarka przechodzi na trasę. *@
 <a href="/product-list" class="btn btn-primary">Show Products</a>
 
+@* Przycisk woła metodę C# zamiast href. *@
 <button type="button" class="btn btn-secondary" @onclick="ShowProducts">Show Products</button>
 
-
+@* Link do edycji produktu o Id = 1. *@
 <a href="/products/1/edit" class="btn btn-danger">Edit Product #1</a>
 
+@* Przycisk otwiera adres zewnętrzny. *@
 <button type="button" class="btn btn-dark" @onclick="ShowGoogle">Google</button>
 
 @code {
-
+    // Wstrzyknięcie przez atrybut — to samo co @inject.
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
+    // Przejście na listę produktów wewnątrz aplikacji.
     private void ShowProducts()
     {
         // ...
         NavigationManager.NavigateTo("/product-list");
     }
 
+    // Przejście na adres poza aplikacją.
     private void ShowGoogle()
     {
         // ...
         NavigationManager.NavigateTo("https://www.google.com");
     }
 }
-

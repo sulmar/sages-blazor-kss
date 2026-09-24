@@ -4,17 +4,21 @@
     </div>
 </div>
 
+@* Przełącznik menu na wąskim ekranie. *@
 <input type="checkbox" title="Navigation menu" class="navbar-toggler" />
 
 <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
     <nav class="flex-column">
         <div class="nav-item px-3">
+            @* NavLink dodaje klasę active, gdy adres pasuje do href. *@
+            @* Match.All — aktywny tylko dla dokładnie pustej trasy. *@
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
             </NavLink>
         </div>
 
         <div class="nav-item px-3">
+            @* href bez ukośnika — trasa /counter. *@
             <NavLink class="nav-link" href="counter">
                 <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
             </NavLink>
@@ -37,8 +41,5 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Built content
             </NavLink>
         </div>
-
-     
     </nav>
 </div>
-

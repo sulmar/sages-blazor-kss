@@ -1,12 +1,17 @@
-﻿@page "/product-list"
+﻿@* Dwie trasy prowadzą do tego samego komponentu. *@
+@page "/product-list"
 @page "/products"
+@* Serwis produktów wstrzyknięty z kontenera DI. *@
 @inject IProductService ProductService
 
+@* Tytuł karty przeglądarki. *@
 <PageTitle>Products</PageTitle>
 
 <h1>Products</h1>
 
+@* Komponent listy: Items to dane, Context to nazwa elementu w szablonie. *@
 <Repeater Items="@products" Context="product">
+    @* Szablon nagłówka tabeli. *@
     <HeaderTemplate>
         <thead>
             <tr>
@@ -18,26 +23,30 @@
         </thead>
     </HeaderTemplate>
 
+    @* Szablon jednego wiersza — product pochodzi z Context. *@
     <ItemTemplate>
         <tr>
+            @* Wartość właściwości modelu w komórce. *@
             <td>@product.Id</td>
             <td>@product.Name</td>
+            @* Format walutowy ceny. *@
             <td>@product.Price.ToString("C")</td>
             <td>
-                <a href="/ProductDetails?Id=@product.Id" class="btn btn-primary">Podgląd</a>                
+                @* Link z identyfikatorem w query string. *@
+                <a href="/ProductDetails?Id=@product.Id" class="btn btn-primary">Podgląd</a>
+                @* Link z identyfikatorem w trasie. *@
                 <a href="/products/@product.Id/edit-validation" class="btn btn-secondary">Edycja</a>
             </td>
-
         </tr>
     </ItemTemplate>
 
+    @* Szablon stopki — tu pusty. *@
     <FooterTemplate>
-
     </FooterTemplate>
 </Repeater>
 
 @code {
-
+    // Kolekcja wyświetlana na liście.
     private IReadOnlyList<ProductListItem> products;
 
     // [Inject]
@@ -45,10 +54,10 @@
 
     // ekwiwalent: @inject ProductService ProductService
 
-    // Page_Load
+    // Page_Load — raz po utworzeniu komponentu.
     protected override void OnInitialized()
     {
+        // Pobranie wszystkich produktów i zamiana na listę tylko do odczytu.
         products = ProductService.GetAll().AsReadOnly();
     }
-
 }

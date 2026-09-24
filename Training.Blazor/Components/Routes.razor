@@ -1,6 +1,10 @@
-﻿<Router AppAssembly="typeof(Program).Assembly">
+﻿@* Router szuka komponentu z @page pasującego do adresu. *@
+<Router AppAssembly="typeof(Program).Assembly">
+    @* Gdy trasa została znaleziona. *@
     <Found Context="routeData">
+        @* Render strony; domyślny układ to MainLayout. *@
         <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
+        @* Po nawigacji ustawia fokus na pierwszym h1. *@
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
 </Router>

@@ -1,33 +1,39 @@
-﻿@using static Training.Blazor.Components.Pages.ProductList
+﻿@* Import statyczny — tu nieużywany w markupie. *@
+@using static Training.Blazor.Components.Pages.ProductList
 
 <table>
 
+    @* Nagłówek tabeli z rodzica. *@
     @HeaderTemplate
 
     <tbody>
+        @* Wiersz dla każdego produktu. *@
         @foreach (var product in Products)
         {
+            @* Szablon wiersza z bieżącym produktem. *@
             @ItemTemplate(product)
         }
     </tbody>
 
+    @* Stopka tabeli z rodzica. *@
     @FooterTemplate
 
 </table>
 
-
 @code {
-
+    // Lista produktów przekazana z rodzica.
     [Parameter, EditorRequired]
     public required IReadOnlyList<ProductListItem> Products { get; set; }
 
+    // Opcjonalny nagłówek.
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
+    // Wymagany szablon jednego produktu.
     [Parameter, EditorRequired]
     public required RenderFragment<ProductListItem> ItemTemplate { get; set; }
 
+    // Opcjonalna stopka.
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
-
 }

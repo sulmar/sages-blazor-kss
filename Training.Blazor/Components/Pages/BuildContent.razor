@@ -1,33 +1,44 @@
-﻿@page "/built-content"
+﻿@* Trasa przykładu budowania UI w kodzie. *@
+@page "/built-content"
+@* Kliknięcie przycisku wymaga trybu interaktywnego. *@
 @rendermode InteractiveServer
-
 
 <PageTitle>Built Content</PageTitle>
 
 <h1>Built Content Example</h1>
 
 <div>
+    @* Fragment UI złożony w C#, a nie w markupie. *@
     @CustomRender
 </div>
 
+@* Kliknięcie buduje trzy komponenty PetDetails. *@
 <button @onclick="RenderComponent">
     Create three Pet Details components
 </button>
 
 @code {
+    // Wynik renderowania; null zanim użytkownik kliknie.
     private RenderFragment? CustomRender { get; set; }
 
+    // Fabryka fragmentu: builder składa drzewo komponentów.
     private RenderFragment CreateComponent() => builder =>
     {
+        // Trzy takie same bloki jeden pod drugim.
         for (var i = 0; i < 3; i++)
         {
+            // Surowy HTML wstawiony do drzewa.
             builder.AddMarkupContent(0, "<h1>Hello, world!</h1></br>Welcome to your new app.</br>");
 
-            builder.OpenComponent(0, typeof(PetDetails));           
+            // Otwarcie komponentu PetDetails.
+            builder.OpenComponent(0, typeof(PetDetails));
+            // Ustawienie parametru PetDetailsQuote.
             builder.AddAttribute(1, "PetDetailsQuote", "Someone's best friend!");
+            // Zamknięcie komponentu.
             builder.CloseComponent();
         }
     };
 
+    // Przypisanie fragmentu powoduje przerysowanie widoku.
     private void RenderComponent() => CustomRender = CreateComponent();
 }

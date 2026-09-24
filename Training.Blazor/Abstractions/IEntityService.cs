@@ -2,6 +2,7 @@
 
 namespace Training.Blazor.Abstractions;
 
+// Kontrakt operacji na encji: lista, odczyt, zapis, dodanie.
 public interface IEntityService<T>
     where T : BaseEntity
 {

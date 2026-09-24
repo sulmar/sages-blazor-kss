@@ -1,39 +1,48 @@
-﻿@page "/products/{id:int}/edit-validation"
+﻿@* Trasa edycji z walidacją, np. /products/1/edit-validation *@
+@page "/products/{id:int}/edit-validation"
+@* Serwis odczytu i zapisu. *@
 @inject IProductService ProductService
+@* Po zapisie przejście na listę. *@
 @inject NavigationManager Navigation
+@* Formularz interaktywny na serwerze. *@
 @rendermode InteractiveServer
 
 <PageTitle>Product Edit Validation</PageTitle>
 
 <h1>Product Edit Validation</h1>
 
+@* Formularz dopiero gdy produkt został znaleziony. *@
 @if (product is null)
 {
     <p>Brak produktu</p>
 }
 else
 {
+    @* Product to model, Save to callback po walidacji. *@
     <ProductForm Product="@product" Save="@SaveProduct" />
 }
 
 @code {
-
+    // Id z adresu URL.
     [Parameter]
     public int Id { get; set; }
 
+    // Rekord ładowany z serwisu.
     private ProductListItem? product;
 
-
+    // Po ustawieniu parametru trasy pobiera produkt.
     protected override void OnParametersSet()
     {
         product = ProductService.GetById(Id);
     }
 
+    // Zapis po poprawnej walidacji formularza.
     private void SaveProduct()
     {
+        // Aktualizacja istniejącego rekordu.
         ProductService.Update(product);
 
+        // Przejście na listę bez przeładowania dokumentu.
         Navigation.NavigateTo("/products");
     }
-
 }

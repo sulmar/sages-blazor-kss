@@ -1,9 +1,11 @@
 ﻿<h2>Pet Details</h2>
 
+@* Tekst przekazany parametrem z komponentu nadrzędnego. *@
 <p>@PetDetailsQuote</p>
 
 @code
 {
+    // Parametr ustawiany przez rodzica, np. PetDetailsQuote="...".
     [Parameter]
     public string? PetDetailsQuote { get; set; }
-}s
+}

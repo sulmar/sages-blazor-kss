@@ -1,30 +1,37 @@
-﻿@page "/products/create"
+﻿@* Trasa formularza nowego produktu. *@
+@page "/products/create"
+@* Serwis dodający produkt. *@
 @inject IProductService ProductService
+@* Nawigacja Blazora — tu nieużywana, zostawiona jako wariant. *@
 @inject NavigationManager Navigation
+@* Fasada nad historią przeglądarki. *@
 @inject BrowserNavigation Nav
+@* Przycisk i formularz działają interaktywnie. *@
 @rendermode InteractiveServer
 
 <PageTitle>Nowy produkt</PageTitle>
 
 <h1>Nowy produkt</h1>
 
+@* Ten sam formularz co przy edycji; Save wskazuje metodę zapisu. *@
 <ProductForm Product="@product" Save="@SaveProduct" />
 
-
 @code {
-
+    // Pusty model na nowy rekord.
     private ProductListItem? product = new();
 
+    // Wywołane po poprawnym wysłaniu formularza.
     private async Task SaveProduct()
     {
+        // Dodanie produktu do kolekcji.
         ProductService.Add(product);
 
         // Navigation.NavigateTo("/products");
 
+        // Cofnięcie tylko gdy historia ma poprzednią stronę.
         if (await Nav.CanBack())
         {
-            await Nav.GoBack(); // Facade 
+            await Nav.GoBack(); // Fasada nad history.back
         }
     }
-
 }

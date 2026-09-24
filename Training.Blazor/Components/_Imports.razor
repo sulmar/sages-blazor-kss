@@ -1,14 +1,19 @@
-﻿@using System.Net.Http
+﻿@* Importy wspólne dla wszystkich komponentów .razor w tym folderze. *@
+@using System.Net.Http
 @using System.Net.Http.Json
+@* Formularze: EditForm, InputText, ValidationMessage. *@
 @using Microsoft.AspNetCore.Components.Forms
+@* Nawigacja: NavLink, NavigationManager. *@
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
+@* Skrót do trybów renderowania, np. InteractiveServer. *@
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@* Interop z JavaScript: IJSRuntime. *@
 @using Microsoft.JSInterop
 @using Training.Blazor
 @using Training.Blazor.Components
-
+@* Komponenty współdzielone bez pełnej nazwy. *@
 @using Training.Blazor.Components.Shared
 @using Training.Blazor.Models
 @using Training.Blazor.Services

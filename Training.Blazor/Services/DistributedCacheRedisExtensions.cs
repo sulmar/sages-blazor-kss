@@ -3,6 +3,7 @@ using System.Text.Json;
 
 namespace Training.Blazor.Services;
 
+// Rozszerzenia IDistributedCache: zapis i odczyt obiektu jako JSON.
 public static class DistributedCacheRedisExtensions
 {
     public static async Task SetRecordAsync<T>(this IDistributedCache cache,
@@ -15,11 +16,13 @@ public static class DistributedCacheRedisExtensions
             throw new ArgumentNullException(nameof(recordKey));
         }
 
+        // Domyślnie wpis wygasa po dwóch minutach.
         var options = new DistributedCacheEntryOptions()
         {
             AbsoluteExpirationRelativeToNow = absolutetime ?? TimeSpan.FromMinutes(2),
         };
 
+        // Obiekt serializowany do JSON i zapisany pod kluczem.
         var recordJson = JsonSerializer.Serialize(data);
         await cache.SetStringAsync(recordKey, recordJson, options);
     }
@@ -31,6 +34,7 @@ public static class DistributedCacheRedisExtensions
             throw new ArgumentNullException(nameof(recordKey));
         }
 
+        // Odczyt surowego JSON albo null, gdy klucza nie ma.
         var recordJson = await cache.GetStringAsync(recordKey);
 
         return recordJson is null

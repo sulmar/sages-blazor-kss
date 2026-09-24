@@ -1,38 +1,43 @@
-﻿@page "/ProductDetails"
+﻿@* Trasa strony szczegółów. *@
+@page "/ProductDetails"
+@* Alternatywna trasa z parametrem w adresie: /Products/15 *@
 @* @page "/Products/{id:int}" *@
+@* Serwis do odczytu produktu. *@
 @inject IProductService ProductService
 
 <h3>ProductDetails</h3>
 
+@* Gdy produktu nie ma — komunikat zamiast danych. *@
 @if (product is null)
 {
     <p>Brak produktu</p>
 }
 else
 {
+    @* Pola modelu wstawione do znaczników. *@
     <p>ID: @product.Id</p>
     <p>Name: @product.Name</p>
     <p>Price: @product.Price.ToString("C")</p>
 }
 
 @code {
-
-    // QueryString:
-    // ProductDetails?id={0}
+    // Id z query string, np. ProductDetails?Id=15
     [SupplyParameterFromQuery]
     public int Id { get; set; }
 
-    // RouteParam:
+    // Wariant z parametrem trasy:
     // Products/{id}
     // [Parameter]
     // public int Id { get; set; }
 
+    // Produkt do wyświetlenia; null zanim zostanie znaleziony.
     private ProductListItem? product;
 
+    // Wołane po ustawieniu parametrów trasy lub query string.
     protected override void OnParametersSet()
     {
         // TODO: GetProductById
+        // Odczyt produktu o podanym Id.
         product = ProductService.GetById(Id);
     }
-
 }

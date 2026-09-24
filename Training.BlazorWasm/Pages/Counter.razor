@@ -1,16 +1,21 @@
-﻿@page "/counter"
+﻿@* Trasa licznika w aplikacji WebAssembly. *@
+@page "/counter"
 
 <PageTitle>Counter</PageTitle>
 
 <h1>Counter</h1>
 
+@* Wartość pola currentCount wstawiona do akapitu. *@
 <p role="status">Current count: @currentCount</p>
 
+@* Kliknięcie woła IncrementCount w przeglądarce, bez postbacku. *@
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
 
 @code {
+    // Stan licznika w instancji komponentu.
     private int currentCount = 0;
 
+    // Zwiększa licznik; Blazor sam odświeża widok.
     private void IncrementCount()
     {
         currentCount++;

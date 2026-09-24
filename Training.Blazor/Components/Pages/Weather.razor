@@ -1,4 +1,6 @@
-﻿@page "/weather"
+﻿@* Trasa strony pogody. *@
+@page "/weather"
+@* Strona wysyła HTML stopniowo, zanim dane będą gotowe. *@
 @attribute [StreamRendering]
 
 <PageTitle>Weather</PageTitle>
@@ -7,6 +9,7 @@
 
 <p>This component demonstrates showing data.</p>
 
+@* null oznacza, że dane jeszcze nie przyszły. *@
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
@@ -23,6 +26,7 @@ else
             </tr>
         </thead>
         <tbody>
+            @* Wiersz tabeli dla każdej prognozy. *@
             @foreach (var forecast in forecasts)
             {
                 <tr>
@@ -37,15 +41,19 @@ else
 }
 
 @code {
+    // Tablica prognoz; null do czasu załadowania.
     private WeatherForecast[]? forecasts;
 
+    // Asynchroniczne ładowanie przy starcie komponentu.
     protected override async Task OnInitializedAsync()
     {
-        // Simulate asynchronous loading to demonstrate streaming rendering
+        // Sztuczne opóźnienie, żeby było widać streaming.
         await Task.Delay(500);
 
+        // Data początkowa i słownik opisów pogody.
         var startDate = DateOnly.FromDateTime(DateTime.Now);
         var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
+        // Pięć losowych prognoz na kolejne dni.
         forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
         {
             Date = startDate.AddDays(index),
@@ -54,11 +62,13 @@ else
         }).ToArray();
     }
 
+    // Model jednego wiersza prognozy.
     private class WeatherForecast
     {
         public DateOnly Date { get; set; }
         public int TemperatureC { get; set; }
         public string? Summary { get; set; }
+        // Temperatura w Fahrenheitach wyliczona z Celsjusza.
         public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
     }
 }

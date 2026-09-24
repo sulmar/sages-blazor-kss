@@ -1,33 +1,39 @@
-﻿@typeparam T
+﻿@* Komponent generyczny — T to typ elementu listy. *@
+@typeparam T
 
 <table class="table table-bordered table-striped">
 
+    @* Opcjonalny nagłówek przekazany przez rodzica. *@
     @HeaderTemplate
 
     <tbody>
+        @* Pętla po kolekcji; każdy element renderuje szablon. *@
         @foreach (var item in Items)
         {
+            @* Szablon wiersza dostaje bieżący element. *@
             @ItemTemplate(item)
         }
     </tbody>
 
+    @* Opcjonalna stopka. *@
     @FooterTemplate
 
 </table>
 
-
 @code {
-
+    // Dane listy — parametr wymagany.
     [Parameter, EditorRequired]
     public required IReadOnlyList<T> Items { get; set; }
 
+    // Fragment HTML nagłówka; null gdy rodzic go nie poda.
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
+    // Szablon wiersza z dostępem do elementu typu T.
     [Parameter, EditorRequired]
     public required RenderFragment<T> ItemTemplate { get; set; }
 
+    // Fragment HTML stopki.
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
-
 }
